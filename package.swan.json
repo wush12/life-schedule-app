@@ -1,0 +1,12 @@
+{
+  "appid": "wush12",
+  "setting": {
+    "urlCheck": false
+  },
+  "condition": {
+    "swan": {
+      "current": -1,
+      "list": []
+    }
+  }
+}
