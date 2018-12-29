@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wush12",
+	"appid": "",
 	"projectname": "life-schedule-app",
 	"condition": {
 		"search": {
