@@ -15,16 +15,16 @@
     "list": [{
       "pagePath": "pages/home/main",
       "iconPath": "/static/assets/home_icon.png",
-      "selectedIconPath":  "/static/assets/home_active_icon.png",
+      "selectedIconPath": "/static/assets/home_active_icon.png",
       "text": "首页"
     },{
       "iconPath": "/static/assets/time_icon.png",
-      "selectedIconPath":  "/static/assets/time_active_icon.png",
+      "selectedIconPath": "/static/assets/time_active_icon.png",
       "pagePath": "pages/time/main",
       "text": "年月日"
     },{
       "iconPath": "/static/assets/day_icon.png",
-      "selectedIconPath":  "/static/assets/day_active_icon.png",
+      "selectedIconPath": "/static/assets/day_active_icon.png",
       "pagePath": "pages/day/main",
       "text": "日子"
 

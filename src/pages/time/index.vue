@@ -13,6 +13,11 @@ export default {
     return {
       now: dateFormat(new Date(), 'YYYY年MM月DD日')
     }
+  },
+  onLoad () {
+    wx.setTabBarStyle({
+      backgroundColor: '#FFFFFF'
+    })
   }
 }
 </script>

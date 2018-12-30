@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:36:16
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-30 14:38:19
+ * @Last Modified time: 2018-12-30 19:23:03
  */
 <template>
   <div class="battery-wrap">
@@ -25,10 +25,6 @@ export default {
   justify-content: center;
   align-items: center;
   height: 300px;
-}
-
-.battery-contain {
-
 }
 </style>
 

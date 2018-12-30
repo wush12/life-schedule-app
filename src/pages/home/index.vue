@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:36:26
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-30 14:30:20
+ * @Last Modified time: 2018-12-30 23:57:08
  */
 <template>
   <div>
@@ -31,8 +31,10 @@ export default {
       this.birthday = date
     }
   },
-  created () {
-
+  onLoad () {
+    wx.setTabBarStyle({
+      backgroundColor: '#FFFFFF'
+    })
   }
 }
 </script>
