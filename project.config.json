@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "",
+	"appid": "wxba1809aad7d37d42",
 	"projectname": "life-schedule-app",
 	"condition": {
 		"search": {
