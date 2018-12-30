@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:39:41
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-30 14:15:10
+ * @Last Modified time: 2018-12-30 14:27:19
  */
 <template>
   <div>
@@ -69,7 +69,6 @@ export default {
   methods: {
     chooseBirthday (event) {
       this.birthday = event.mp.detail.value
-      this.$emit('changeBirth', this.birthday)
     },
     getBirthdayToNow () {
       let birthday = new Date(this.birthday)
@@ -89,6 +88,11 @@ export default {
     },
     clearBirth () {
       this.birthday = ''
+    }
+  },
+  watch: {
+    birthday () {
+      this.$emit('changeBirth', this.birthday)
     }
   }
 }

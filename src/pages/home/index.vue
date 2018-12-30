@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:36:26
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-30 13:57:55
+ * @Last Modified time: 2018-12-30 14:30:20
  */
 <template>
   <div>
@@ -12,13 +12,13 @@
 </template>
 
 <script>
-// import TimeBattery from '@/components/time-battery'
+import TimeBattery from '@/components/time-battery'
 import HomeHead from './home-head'
 
 export default {
   name: 'home',
   components: {
-    // TimeBattery,
+    TimeBattery,
     HomeHead
   },
   data () {
