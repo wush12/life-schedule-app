@@ -20,20 +20,11 @@
 <script>
 export default {
   name: 'day',
-<<<<<<< HEAD
-  onLoad () {
-    wx.setTabBarStyle({
-      backgroundColor: '#D8F8B9'
-    })
-  },
-  methods : {
-=======
   methods:{
->>>>>>> refs/remotes/origin/master
     addSchedule(){
       console.log('跳转')
       wx.navigateTo({
-        url: '../routine/routine'
+        url: '/pages/routine/main'
       })
     }
   },
