@@ -2,7 +2,8 @@
   "pages": [
     "pages/home/main",
     "pages/time/main",
-    "pages/day/main"
+    "pages/day/main",   
+    "pages/routine/routine"
   ],
   "window": {
     "backgroundTextStyle": "light",
