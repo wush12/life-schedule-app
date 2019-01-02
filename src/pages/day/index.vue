@@ -25,8 +25,8 @@ export default {
       backgroundColor: '#D8F8B9'
     })
   },
-   methods:{
-    addSchedule(){
+  methods:{
+    addSchedule (){
       console.log('跳转')
       wx.navigateTo({
         url: '../routine/routine'
