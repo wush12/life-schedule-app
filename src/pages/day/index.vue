@@ -12,7 +12,7 @@
     </div>
     <p class="day-card-tip">总有一些日子让你刻骨铭心</p>
     <div class="day-card-add-wrap">
-      <div class="day-card-add">+</div>
+      <div class="day-card-add" @click="addSchedule">+</div>
     </div>
   </div>
 </template>
@@ -24,6 +24,14 @@ export default {
     wx.setTabBarStyle({
       backgroundColor: '#D8F8B9'
     })
+  },
+   methods:{
+    addSchedule(){
+      console.log('跳转')
+      wx.navigateTo({
+        url: '../routine/routine'
+      })
+    }
   }
 }
 </script>
