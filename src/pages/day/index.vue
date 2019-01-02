@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 19:28:50
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-31 00:08:02
+ * @Last Modified time: 2019-01-02 17:41:12
  */
 <template>
   <div class="day-card-wrap">
@@ -25,8 +25,8 @@ export default {
       backgroundColor: '#D8F8B9'
     })
   },
-  methods:{
-    addSchedule (){
+  methods : {
+    addSchedule(){
       console.log('跳转')
       wx.navigateTo({
         url: '../routine/routine'
