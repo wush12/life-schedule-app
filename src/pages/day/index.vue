@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 19:28:50
  * @Last Modified by: wush12
- * @Last Modified time: 2019-01-02 17:41:12
+ * @Last Modified time: 2019-01-02 20:20:02
  */
 <template>
   <div class="day-card-wrap">
@@ -20,18 +20,27 @@
 <script>
 export default {
   name: 'day',
+<<<<<<< HEAD
   onLoad () {
     wx.setTabBarStyle({
       backgroundColor: '#D8F8B9'
     })
   },
   methods : {
+=======
+  methods:{
+>>>>>>> refs/remotes/origin/master
     addSchedule(){
       console.log('跳转')
       wx.navigateTo({
         url: '../routine/routine'
       })
     }
+  },
+  onShow () {
+    wx.setTabBarStyle({
+      backgroundColor: '#D8F8B9'
+    })
   }
 }
 </script>
