@@ -1,5 +1,5 @@
 <template>
-     <div id="schedule-content">
+     <div class="schedule-content">
          <div>
              <ul class="form-content">
                  <li><input class="input" placeholder="点这里输入事件名称"/></li>
@@ -15,12 +15,17 @@
                       size="mini"
                       plain>{{pickDate}}</span>
                   </picker></div></li>
-                 <li class='no-border-bottom'>农历 <span class="icon-ellipsiod" ><i class="icon-circle" v-show="!choosed" @click="changeChooseStatus"></i><i class="icon-circle open" v-show="choosed" @click="changeChooseStatus"></i></span></li>
+                 <li class='no-border-bottom'><span :style="{display: 'block',float: 'left'}">农历</span>
+                     <view class="body-view fr" :style="{marginRight:'20px'}">
+                        <switch checked bindchange=""/>
+                    </view>
+                     </li>
              </ul>
              <p>勾选“农历”后，选中日期将以农历形式 显示</p>
              <span class="button bg-green font-white" @click="submitEvent">确定</span>
              <span class="button bg-white">取消</span>
          </div>
+         
     </div>
 </template>
 <script>
@@ -49,10 +54,11 @@ export default {
   }
 }
 </script>
-<style>
-    .body{
+<style scoped>
+    .schedule-content{
         background: #eee;
         font-size:16px;
+        height:200vw;
     }
     .form-content{
         width:100%; 
@@ -104,28 +110,7 @@ export default {
     .no-border-bottom{
         border-bottom:none !important;
     }
-    .icon-ellipsiod{
-      position:relative;
-      left:65%;
-      top:4px;
-      display: inline-block;
-      width:60px;
-      height:32px;
-      border:1px solid #ddd;
-      border-radius:16px;
-    }
-    .icon-circle{
-      position: absolute;
-      display: inline-block;
-      width:30px;
-      height:30px;
-      border-radius:50%;
-      border:1px solid #ddd;
-    }
-    .open{
-      position: absolute;
-      background: #2bc211;
-      right:0;
-      top:0;
+    .fr{
+        float:right;
     }
 </style>
