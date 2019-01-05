@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:39:41
  * @Last Modified by: wush12
- * @Last Modified time: 2018-12-30 14:27:19
+ * @Last Modified time: 2019-01-05 18:55:47
  */
 <template>
   <div>
@@ -46,6 +46,7 @@
 
 <script>
 import dateFormat from '@/utils/date-format'
+import birthInterval from '@/utils/birth-interval'
 
 export default {
   name: 'home-head',
@@ -71,20 +72,7 @@ export default {
       this.birthday = event.mp.detail.value
     },
     getBirthdayToNow () {
-      let birthday = new Date(this.birthday)
-      let now = new Date()
-      let interval = 0
-      let birthYear = birthday.getFullYear()
-      let nowYear = now.getFullYear()
-      if (nowYear - birthYear >= 1) {
-        interval += (nowYear - birthYear - 1) * 12
-        // 取月份前后差
-        interval += 12 - birthday.getMonth()
-        interval += now.getMonth()
-      } else {
-        interval = now.getMonth() - birthday.getMonth()
-      }
-      return interval
+      return birthInterval(new Date(this.birthday))
     },
     clearBirth () {
       this.birthday = ''

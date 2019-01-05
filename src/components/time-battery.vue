@@ -2,7 +2,7 @@
  * @Author: wush12
  * @Date: 2018-12-30 13:36:16
  * @Last Modified by: wush12
- * @Last Modified time: 2019-01-03 00:24:41
+ * @Last Modified time: 2019-01-05 19:18:00
  */
 <template>
   <div class="battery-wrap">
@@ -16,16 +16,20 @@
 </template>
 
 <script>
+import dateFormat from '@/utils/date-format'
+import birthInterval from '@/utils/birth-interval'
+
 export default {
   name: 'time-battery',
   props: {
     date: {
-      type: Number,
-      default: 80
+      type: String,
+      default: dateFormat(new Date(), 'YYYY-MM')
     }
   },
   data () {
     return {
+      batteryValue: 100, // 剩余电量
       // 电池起点
       batteryOringin: {
         x: 150,
@@ -38,15 +42,11 @@ export default {
         y: 50
       }, // 初始化波浪控制点
       radius: 4, // 电池圆角
+      waveY: 60, // 波浪y轴
       context: null
     }
   },
   computed: {
-    waveY () {
-      // 波浪y值
-      const percent = this.date / 100
-      return this.batteryOringin.y + this.batteryHeitgh *  (1 - percent)
-    },
     // 电池右上角坐标
     rightTop () {
       return {
@@ -84,6 +84,9 @@ export default {
     }
   },
   methods: {
+    getBirthdayToNow () {
+      return birthInterval(new Date(this.date))
+    },
     drawBodyTop (context) {
       context.beginPath()
       context.moveTo(this.waveLeft.x, this.waveLeft.y)
@@ -136,7 +139,22 @@ export default {
       // 填充颜色
       context.setFillStyle('#D8F8B9')
       context.fill()
+      context.font = '12px Arial'
+      context.textAlign = 'center'
+      context.textBaseline = 'bottom'
+      context.fillStyle = '#FFFFFF'
+      context.fillText(this.batteryValue + '%', this.batteryOringin.x + this.batteryWidth / 2, this.batteryOringin.y + this.batteryHeitgh / 2)
       context.draw()
+    }
+  },
+  watch: {
+    date () {
+      const interval = this.getBirthdayToNow()
+      // 波浪y值
+      const percent = interval / 900
+      this.batteryValue = (1 - percent).toFixed(4) * 100
+      this.waveY = this.batteryOringin.y + this.batteryHeitgh *  percent
+      this.initCanvas()
     }
   },
   mounted () {
@@ -144,7 +162,7 @@ export default {
     // setInterval(() => {
     //   if (this.context) {
     //     this.initCanvas()
-    //     this.control.x = this.control.x + 0.1
+    //     this.control.x = this.control.x + 1
     //   }
     // }, 200)
   }
