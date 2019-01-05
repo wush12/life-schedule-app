@@ -16,15 +16,12 @@
 </template>
 
 <script>
-import dateFormat from '@/utils/date-format'
-import birthInterval from '@/utils/birth-interval'
-
 export default {
   name: 'time-battery',
   props: {
-    date: {
-      type: String,
-      default: dateFormat(new Date(), 'YYYY-MM')
+    data: {
+      type: Number,
+      default: 100
     }
   },
   data () {
@@ -38,8 +35,8 @@ export default {
       batteryWidth: 100, // 电池宽度
       batteryHeitgh: 180, // 电池宽度
       control: {
-        x: 170,
-        y: 50
+        x: 180,
+        y: 80
       }, // 初始化波浪控制点
       radius: 4, // 电池圆角
       waveY: 60, // 波浪y轴
@@ -84,9 +81,6 @@ export default {
     }
   },
   methods: {
-    getBirthdayToNow () {
-      return birthInterval(new Date(this.date))
-    },
     drawBodyTop (context) {
       context.beginPath()
       context.moveTo(this.waveLeft.x, this.waveLeft.y)
@@ -114,13 +108,13 @@ export default {
     },
     // 起点，控制点
     wave (context, { x, y, x1, y1}) {
-      context.beginPath()
       context.moveTo(x, y)
       // 起点x,y
       // 控制点x1, y1
       // 结束点x2, y
-      let x2 = x + this.batteryWidth
+      let x2 = x + this.batteryWidth / 2
       context.quadraticCurveTo(x1, y1, x2, y)
+      context.stroke()
     },
     initCanvas () {
       const context = wx.createCanvasContext('battery')
@@ -132,7 +126,9 @@ export default {
       // 画电池头部
       this.drawHead(context)
       // 绘制波浪
-      this.wave(context, {x: this.batteryOringin.x, y: this.waveY, x1: this.control.x, y1: this.control.y})
+      context.beginPath()
+      // this.wave(context, {x: this.batteryOringin.x, y: this.waveY, x1: this.control.x, y1: this.control.y})
+      this.wave(context, {x: this.batteryOringin.x + this.batteryWidth / 2, y: this.waveY, x1: this.control.x + this.batteryWidth / 2, y1: this.control.y + 40})
       // 画电池body底部
       this.drawBodyBottom(context)
       context.stroke()
@@ -145,13 +141,20 @@ export default {
       context.fillStyle = '#FFFFFF'
       context.fillText(this.batteryValue + '%', this.batteryOringin.x + this.batteryWidth / 2, this.batteryOringin.y + this.batteryHeitgh / 2)
       context.draw()
+    },
+    run () {
+      setInterval(() => {
+        if (this.context) {
+          this.initCanvas()
+          this.control.x = this.control.x + 1
+        }
+      }, 200)
     }
   },
   watch: {
-    date () {
-      const interval = this.getBirthdayToNow()
+    data () {
       // 波浪y值
-      const percent = interval / 900
+      const percent = this.data / 100
       this.batteryValue = (1 - percent).toFixed(4) * 100
       this.waveY = this.batteryOringin.y + this.batteryHeitgh *  percent
       this.initCanvas()
@@ -159,12 +162,7 @@ export default {
   },
   mounted () {
     this.initCanvas()
-    // setInterval(() => {
-    //   if (this.context) {
-    //     this.initCanvas()
-    //     this.control.x = this.control.x + 1
-    //   }
-    // }, 200)
+    // this.run()
   }
 }
 </script>

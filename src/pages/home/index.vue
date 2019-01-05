@@ -7,13 +7,14 @@
 <template>
   <div>
     <home-head @changeBirth="changeBirth"></home-head>
-    <time-battery :date="birthday"></time-battery>
+    <time-battery :data="batteryValue"></time-battery>
   </div>
 </template>
 
 <script>
 import TimeBattery from '@/components/time-battery'
 import HomeHead from './home-head'
+import birthInterval from '@/utils/birth-interval'
 
 export default {
   name: 'home',
@@ -26,9 +27,20 @@ export default {
       birthday: ''
     }
   },
+  computed: {
+    batteryValue () {
+      if (this.birthday) {
+        return birthInterval(new Date(this.birthday)) / 9
+      }
+      return 100
+    }
+  },
   methods: {
     changeBirth (date) {
       this.birthday = date
+    },
+    getBirthdayToNow () {
+      return birthInterval(new Date(this.date)) / 900
     }
   },
   onShow () {
