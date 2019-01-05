@@ -7,7 +7,7 @@
 <template>
   <div>
     <home-head @changeBirth="changeBirth"></home-head>
-    <time-battery :date="birthday"></time-battery>
+    <time-battery></time-battery>
   </div>
 </template>
 
