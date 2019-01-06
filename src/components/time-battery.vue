@@ -1,8 +1,9 @@
 /*
+import { clearInterval } from 'timers';
  * @Author: wush12
  * @Date: 2018-12-30 13:36:16
  * @Last Modified by: wush12
- * @Last Modified time: 2019-01-05 19:18:00
+ * @Last Modified time: 2019-01-06 22:04:41
  */
 <template>
   <div class="battery-wrap">
@@ -11,7 +12,7 @@
         style="width: 400px; height: 300px;"
         canvas-id="battery"></canvas>
     </div>
-    <p class="battery-tip">要对自己有信心^0^</p>
+    <p class="battery-tip" v-if="showTips">要对自己有信心^0^</p>
   </div>
 </template>
 
@@ -21,7 +22,11 @@ export default {
   props: {
     data: {
       type: Number,
-      default: 100
+      default: 100,
+      showTips: {
+        type: Boolean,
+        default: true
+      }
     }
   },
   data () {
@@ -35,12 +40,13 @@ export default {
       batteryWidth: 100, // 电池宽度
       batteryHeitgh: 180, // 电池宽度
       control: {
-        x: 180,
+        x: 150,
         y: 80
       }, // 初始化波浪控制点
       radius: 4, // 电池圆角
       waveY: 60, // 波浪y轴
-      context: null
+      context: null,
+      waveTimer: null
     }
   },
   computed: {
@@ -112,7 +118,7 @@ export default {
       // 起点x,y
       // 控制点x1, y1
       // 结束点x2, y
-      let x2 = x + this.batteryWidth / 2
+      let x2 = x + this.batteryWidth
       context.quadraticCurveTo(x1, y1, x2, y)
       context.stroke()
     },
@@ -128,7 +134,7 @@ export default {
       // 绘制波浪
       context.beginPath()
       // this.wave(context, {x: this.batteryOringin.x, y: this.waveY, x1: this.control.x, y1: this.control.y})
-      this.wave(context, {x: this.batteryOringin.x + this.batteryWidth / 2, y: this.waveY, x1: this.control.x + this.batteryWidth / 2, y1: this.control.y + 40})
+      this.wave(context, {x: this.batteryOringin.x, y: this.waveY, x1: this.control.x, y1: this.control.y})
       // 画电池body底部
       this.drawBodyBottom(context)
       context.stroke()
@@ -142,12 +148,18 @@ export default {
       context.fillText(this.batteryValue + '%', this.batteryOringin.x + this.batteryWidth / 2, this.batteryOringin.y + this.batteryHeitgh / 2)
       context.draw()
     },
+    changeControl () {
+
+    },
+    clearWaveTimer () {
+      if (this.waveTimer) clearInterval(this.waveTimer)
+      this.waveTimer = null
+    },
     run () {
-      setInterval(() => {
-        if (this.context) {
-          this.initCanvas()
-          this.control.x = this.control.x + 1
-        }
+      this.clearWaveTimer()
+      this.waveTimer = setInterval(() => {
+        this.changeControl()
+        this.initCanvas()
       }, 200)
     }
   },
@@ -163,6 +175,9 @@ export default {
   mounted () {
     this.initCanvas()
     // this.run()
+  },
+  destroyed () {
+    this.clearWaveTimer()
   }
 }
 </script>

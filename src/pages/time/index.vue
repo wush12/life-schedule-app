@@ -1,17 +1,31 @@
 <template>
   <div>
-    <p class="time-title">{{ now }}</p>
+    <div class="time-header">{{ now }}</div>
+    <swiper
+      class="time-swiper"
+      :indicator-dots="true"
+      indicator-color="#919CA3"
+      indicator-active-color="#6C7880">
+      <swiper-item v-for="item in timeArr" :key="item">
+        <time-battery :data="90" :showTips="false"></time-battery>
+      </swiper-item>
+    </swiper>
   </div>
 </template>
 
 <script>
 import dateFormat from '@/utils/date-format'
+import timeBattery from '@/components/time-battery'
 
 export default {
   name: 'time',
+  components: {
+    timeBattery
+  },
   data () {
     return {
-      now: dateFormat(new Date(), 'YYYY年MM月DD日')
+      now: dateFormat(new Date(), 'YYYY年MM月DD日'),
+      timeArr: ['year', 'month', 'day']
     }
   },
   onShow () {
@@ -23,8 +37,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.time-title {
+.time-header {
+  height: 40px;
   text-align: center;
-  letter-spacing: 4px;
+}
+
+.time-swiper {
+  height: 300px;
 }
 </style>
