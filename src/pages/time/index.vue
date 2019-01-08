@@ -6,8 +6,8 @@
       :indicator-dots="true"
       indicator-color="#919CA3"
       indicator-active-color="#6C7880">
-      <swiper-item v-for="item in timeArr" :key="item">
-        <time-battery :data="90" :showTips="false"></time-battery>
+      <swiper-item v-for="(item, index) in timeArr" :key="item">
+        <time-battery :item-id="index" :data="90" :showTips="false"></time-battery>
       </swiper-item>
     </swiper>
   </div>

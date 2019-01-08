@@ -41,12 +41,14 @@ export default {
       batteryHeitgh: 180, // 电池宽度
       control: {
         x: 150,
-        y: 80
+        y: 60
       }, // 初始化波浪控制点
       radius: 4, // 电池圆角
+      waveHeight: 8, // 波浪高度
       waveY: 60, // 波浪y轴
       context: null,
-      waveTimer: null
+      waveTimer: null,
+      direction: 'right' // 波浪控制点移动方向
     }
   },
   computed: {
@@ -149,7 +151,22 @@ export default {
       context.draw()
     },
     changeControl () {
-
+      if (this.direction === 'right') {
+        if (this.control.x < this.batteryOringin.x + this.batteryWidth) {
+          this.control.x = this.control.x + 1
+        } else {
+          this.direction = 'left'
+        }
+      } else if (this.direction === 'left') {
+        if (this.control.x > this.batteryOringin.x) {
+          this.control.x = this.control.x - 1
+        } else {
+          this.direction = 'right'
+        }
+      }
+      const scale = (this.control.x - this.batteryOringin.x) / (this.batteryWidth)
+      const angle = Math.PI * (scale * 2)
+      this.control.y = this.waveY + Math.sin(angle) * this.waveHeight
     },
     clearWaveTimer () {
       if (this.waveTimer) clearInterval(this.waveTimer)
@@ -158,8 +175,10 @@ export default {
     run () {
       this.clearWaveTimer()
       this.waveTimer = setInterval(() => {
-        this.changeControl()
-        this.initCanvas()
+        if (this.data !== 100) {
+          this.changeControl()
+          this.initCanvas()
+        }
       }, 200)
     }
   },
@@ -174,7 +193,7 @@ export default {
   },
   mounted () {
     this.initCanvas()
-    // this.run()
+    this.run()
   },
   destroyed () {
     this.clearWaveTimer()
